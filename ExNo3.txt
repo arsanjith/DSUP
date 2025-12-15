@@ -1,0 +1,300 @@
+Ex. No.: 3
+
+Date:
+
+USING PHP AND MYSQL DATABASE
+
+Aim
+
+To develop a simple application which displays the result of the student by getting register number as user input( assuming student marks are already available in the database).
+
+Program
+
+1) Database and Table creation in MySQLPHP
+
+Creating database 'college'
+
+mysql> CREATE DATABASE college;
+
+Query OK, 1 row affected (0.02 sec)
+
+Showing databases
+mysql>show databases;
+sysql> show databases;
+
+Database
+
+information_schema
+
+college
+
+mysql
+
+performance_schema
+
+student
+
+| sys
+
+1
+
+6 rows in set (0.01 sec)
+
+Using 'college' database
+
+mysql> use college;
+
+Database changed
+
+Creating 'student' table
+
+mysql> CREATE TABLE student (id INT AUTO_INCREMENT PRIMARY KEY, reg_no VARCHAR(50), name VARCHAR(100), M1 INT, M2 INT, M3 INT, M4 INT, M5 INT);
+
+Query OK, 0 rows affected (0.03 sec)
+
+Inserting rows into table 'student'
+
+mysql> INSERT INTO student (reg_no,name,M1,M2,M3,M4, M5) VALUES('COMP1111', 'Lanish', 78, 89, 90, 98, 99),
+
+->('COMP1112', 'Jerin', 88,99,90,67,76),
+
+->('COMP1113', 'Merin', 97,98,96,95,90),
+
+->('COMP1114', 'Janan', 78,89,83,99,93),
+
+->('COMP1115', 'Subbu', 67,78,89,90,94);
+
+Query OK, 5 rows affected (0.00 sec)
+
+Records: 5 Duplicates: 0 Warnings: 0
+
+Showing student table contents
+
+mysql> select from student;
+mysql> select from student;
+
+| M3
+
+M4
+
+| M5
+
+1
+
+| id |
+
+reg_no
+
+| name
+
+| M1
+
+| M2
+
+1 COMP1111
+
+Lanish
+
+78 |
+
+89
+
+90 |
+
+98
+
+99
+
+2 COMP1112
+
+Jerin
+
+88
+
+99
+
+90
+
+67
+
+76
+
+3 COMP1113
+
+Merin
+
+97
+
+98
+
+96
+
+95
+
+90
+
+4 COMP1114
+
+Janan
+
+78
+
+89
+
+83
+
+99 |
+
+93 |
+
+5 COMP1115 |
+
+Subbu
+
+671
+
+78
+
+89 |
+
+90 |
+
+94
+
+5 rows in set (0.00 sec)
+
+mysql>
+
+1) HTML Form for user input
+
+EXNO3SCRIPTING.html
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,
+
+initial-scale=1.0">
+
+<title>Student Result Display</title>
+
+</head>
+
+<body>
+
+<h2>Student Result </h2>
+
+<form action="EXNO3SCRIPTING.php" method="POST">
+
+<label for="reg_no">Enter Register Number:</label>
+
+<input type="text" id="reg_no" name="reg_no" required>
+
+<input type="submit" value="Get Result">
+
+</form>
+
+</body>
+
+</html>
+) PHP code to Retrieve and Display results
+
+EXNO3SCRIPTING.PHP
+
+<?php
+
+Shost"localhost'; // Database host
+
+$db'college';
+
+// Database name
+
+Suser 'root';
+
+// Database username (default is usually 'root')
+
+Spass
+
+//Database password (leave empty if not set)
+
+//Create connection
+
+Sconn new mysqli(Shost, Suser, Spass, Sdb);
+
+//Check connection
+
+if ($conn->connect_error) (
+
+die("Connection failed: ". Sconn->connect_error);
+
+//Get the register number from the POST request
+
+Sreg_no=$_POST["reg_no"];
+
+//Query to get student data
+
+$sql="SELECT FROM student WHERE reg_no = "Sreg_no";
+
+Sresult Sconn->query($sql);
+
+if ($result num_rows> 0) {
+
+// Fetch the result as an associative array
+
+Srow$result->fetch_assoc();
+
+StotalSrow['M1] + Srow['M2'] + Srow['M3'] + Srow['M4'] +
+
+Srow['M5'];
+
+Saverage Stotal/5;
+
+// Display student results
+
+echo "<h2>Student Result</h2>";
+
+echo "Name:". Srow['name']."<br>";
+
+echo "Register Number:". Srow['reg_no']."<br>";
+
+echo "Marks: <br>";
+
+echo "Subject 1: ".$row['M1']."<br>";
+echo "Subject 2:". Srow['2']."<br>";
+
+echo "Subject 3: ".$row['M3']."<br>";
+
+echo "Subject 4: ". Srow['M4']."<br>";
+
+echo "Subject 5: ".$row['M5']."<br>";
+
+echo "Total Marks: ". Stotal. "<br>";
+
+echo "Average Marks:" number_format(Saverage, 2). "<br>";
+
+}
+
+else
+
+{
+
+echo "No student found with the given registration number.";
+
+// Close the database connection
+
+$conn->close();
+
+?>
+
+Save the above files in C:\wamp\www folder.
+
+Sample Output
+
+Run as http://localhost/EXNO3SCRIPTING.html
+
+a) While entered register number is available in the
